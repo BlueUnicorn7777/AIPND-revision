@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/get_input_args.py
 #                                                                             
-# PROGRAMMER: 
-# DATE CREATED:                                   
+# PROGRAMMER: Jayadevi Singh  
+# DATE CREATED: 04/20/2024                                  
 # REVISED DATE: 
 # PURPOSE: Create a function that retrieves the following 3 command line inputs 
 #          from the user using the Argparse Python module. If the user fails to 
@@ -38,6 +38,13 @@ def get_input_args():
     Returns:
      parse_args() -data structure that stores the command line arguments object  
     """
-    # Replace None with parser.parse_args() parsed argument collection that 
-    # you created with this function 
-    return None
+    valid_arch = ['resnet', 'alexnet' , 'vgg']
+    parser = argparse.ArgumentParser(description='Use a Pre-trained Image Classifier to Identify Dog Breeds')
+    parser.add_argument('--dir', type=str, default='pet_images/',help='path to folder of images')
+    parser.add_argument('--arch', type=str, choices=valid_arch, default='vgg', help='select one of the image classification model : {}'.format(', '.join(valid_arch)))
+    parser.add_argument('--dogfile', type=str, default='dognames.txt',help='Provide a filename for dog names.')
+    
+    return parser.parse_args() 
+
+    
+

@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/adjust_results4_isadog.py
 #                                                                             
-# PROGRAMMER: 
-# DATE CREATED:                                 
+# PROGRAMMER: Jayadevi Singh
+# DATE CREATED: 04/20/2024                                 
 # REVISED DATE: 
 # PURPOSE: Create a function adjust_results4_isadog that adjusts the results 
 #          dictionary to indicate whether or not the pet image label is of-a-dog, 
@@ -66,5 +66,40 @@ def adjust_results4_isadog(results_dic, dogfile):
                maltese) (string - indicates text file's filename)
     Returns:
            None - results_dic is mutable data type so no return needed.
-    """           
-    None
+    """ 
+  
+
+  # Creates dognames dictionary for quick matching to results_dic labels from
+  # real answer & classifier's answer
+    dognames_dic = dict()
+
+    # Reads in dognames from file, 1 name per line & automatically closes file
+    with open(dogfile, "r") as infile:
+      # Reads in dognames from first line in file
+      line = infile.readline()
+      while line != "":
+        line = ((line.rstrip('\n')).strip()).lower()
+        if line not in dognames_dic:
+          dognames_dic[line] = 1      
+        line = infile.readline()                
+    # Add to whether pet labels & classifier labels are dogs by appending
+    # two items to end of value(List) in results_dic. 
+    # List Index 3 = whether(1) or not(0) Pet Image Label is a dog AND 
+    # List Index 4 = whether(1) or not(0) Classifier Label is a dog
+    # How - iterate through results_dic if labels are found in dognames_dic
+    # then label "is a dog" index3/4=1 otherwise index3/4=0 "not a dog"
+    for key in results_dic:
+
+        # Pet Image Label IS of Dog (e.g. found in dognames_dic)
+
+        is_of_dog = [0,0]
+        if results_dic[key][0] in dognames_dic:
+          is_of_dog[0] = 1  
+        if results_dic[key][1] in dognames_dic:
+          is_of_dog[1] = 1   
+        results_dic[key].extend(is_of_dog)    
+        
+        
+    
+           
+

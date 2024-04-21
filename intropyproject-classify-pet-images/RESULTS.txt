@@ -1,0 +1,45 @@
+
+
+*** Results Summary for CNN Model Architecture ALEXNET ***
+N Images            :  40
+N Dog Images        :  30
+N Not-Dog Images    :  10
+ 
+N pct_match         : 75.000000
+N pct_correct_dogs  : 100.000000
+N pct_correct_breed : 80.000000
+N pct_correct_notdogs: 100.000000
+
+
+ Elapsed Time Raw :  0.98297119140625
+
+*** Results Summary for CNN Model Architecture RESNET ***
+N Images            :  40
+N Dog Images        :  30
+N Not-Dog Images    :  10
+ 
+N pct_match         : 82.500000
+N pct_correct_dogs  : 100.000000
+N pct_correct_breed : 90.000000
+N pct_correct_notdogs: 90.000000
+
+
+ Elapsed Time Raw :  1.0167768001556396
+
+ *** Results Summary for CNN Model Architecture VGG ***
+N Images            :  40
+N Dog Images        :  30
+N Not-Dog Images    :  10
+ 
+N pct_match         : 87.500000
+N pct_correct_dogs  : 100.000000
+N pct_correct_breed : 93.333333
+N pct_correct_notdogs: 100.000000
+
+ Elapsed Time Raw :  3.9845168590545654
+
+****************************************************************************************************************
+
+VGG gives the best Results of >93 % at the cost of increased processing time.
+
+RESNET is the best trade off between time and accuracy. It gives over 90% accuracy with verly little cost over ALEXNET

@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/get_pet_labels.py
 #                                                                             
-# PROGRAMMER: 
-# DATE CREATED:                                  
+# PROGRAMMER: Jayadevi  
+# DATE CREATED: 04/20/2024                                 
 # REVISED DATE: 
 # PURPOSE: Create the function get_pet_labels that creates the pet labels from 
 #          the image's filename. This function inputs: 
@@ -23,6 +23,26 @@ from os import listdir
 #       in the return statement with results_dic dictionary that you create 
 #       with this function
 # 
+def get_pet_name(pet_image):
+  ## Sets string to lower case letters
+  low_pet_image = pet_image.lower()
+
+  ## Splits lower case string by _ to break into words 
+  word_list_pet_image = low_pet_image.split("_")
+
+  ## Create pet_name starting as empty string
+  pet_name = ""
+
+  ## Loops to check if word in pet name is only
+  ## alphabetic characters - if true append word
+  ## to pet_name separated by trailing space 
+  for word in word_list_pet_image:
+    if word.isalpha():
+      pet_name += word + " "
+  ## Strip off starting/trailing whitespace characters 
+  pet_name = pet_name.strip()
+  return pet_name
+    
 def get_pet_labels(image_dir):
     """
     Creates a dictionary of pet labels (results_dic) based upon the filenames 
@@ -42,4 +62,46 @@ def get_pet_labels(image_dir):
     """
     # Replace None with the results_dic dictionary that you created with this
     # function
-    return None
+    
+    # Creates list of files in directory
+    in_files = listdir(image_dir)
+    # Processes each of the files to create a dictionary where the key
+    # is the filename and the value is the picture label (below).
+ 
+    # Creates empty dictionary for the results (pet labels, etc.)
+    results_dic = dict()
+   
+    # Processes through each file in the directory, extracting only the words
+    # of the file that contain the pet image label
+    for idx in range(0, len(in_files), 1):
+       
+       # Skips file if starts with . (like .DS_Store of Mac OSX) because it 
+       # isn't an pet image file
+       if in_files[idx][0] != ".":
+           
+           # Creates temporary label variable to hold pet label name extracted 
+           pet_label = get_pet_name(in_files[idx])
+         
+           # If filename doesn't already exist in dictionary add it and it's
+           # pet label - otherwise print an error message because indicates 
+           # duplicate files (filenames)
+           if in_files[idx] not in results_dic:
+              results_dic[in_files[idx]] = [pet_label]
+              
+           else:
+               print("** Warning: Duplicate files exist in directory:", 
+                     in_files[idx])
+ 
+    # TODO 2b. Replace None with the results_dic dictionary that you created
+    # with this function
+    return results_dic
+
+def main():
+    results_dic = get_pet_labels("pet_images/")
+    #Iterating through a dictionary printing all keys & their associated values
+    print("\nPrinting all key-value pairs in dictionary results_dic:")
+    for key in results_dic:
+      print("Filename=", key, "   Pet Label=", results_dic[key][0])
+
+if __name__ == "__main__":
+    main()
